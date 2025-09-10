@@ -1,0 +1,295 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Reserva API",
+    "description": "API para gerenciamento de reservas de hotéis.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/hoteis": {
+      "post": {
+        "summary": "Criar hotel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Hotel" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Hotel criado com sucesso" }
+        }
+      },
+      "get": {
+        "summary": "Listar hotéis",
+        "responses": {
+          "200": { "description": "Lista de hotéis" }
+        }
+      }
+    },
+    "/hoteis/{id}": {
+      "get": {
+        "summary": "Obter hotel por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Hotel encontrado" },
+          "404": { "description": "Hotel não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar hotel",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Hotel" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Hotel atualizado" },
+          "404": { "description": "Hotel não encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Deletar hotel",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Hotel deletado" },
+          "404": { "description": "Hotel não encontrado" }
+        }
+      }
+    },
+    "/hoteis/{hotelId}/quartos": {
+      "get": {
+        "summary": "Listar quartos por hotel",
+        "parameters": [
+          { "name": "hotelId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Lista de quartos" },
+          "404": { "description": "Nenhum quarto encontrado para este hotel" }
+        }
+      },
+      "post": {
+        "summary": "Criar quarto para hotel",
+        "parameters": [
+          { "name": "hotelId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Quarto" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Quarto criado" }
+        }
+      }
+    },
+    "/quartos": {
+      "get": {
+        "summary": "Listar todos os quartos",
+        "responses": {
+          "200": { "description": "Lista de quartos" }
+        }
+      }
+    },
+    "/quartos/{id}": {
+      "get": {
+        "summary": "Obter quarto por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Quarto encontrado" },
+          "404": { "description": "Quarto não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar quarto",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Quarto" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Quarto atualizado" },
+          "404": { "description": "Quarto não encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Deletar quarto",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Quarto deletado" },
+          "404": { "description": "Quarto não encontrado" }
+        }
+      }
+    },
+    "/quartos/{id}/disponibilidade": {
+      "get": {
+        "summary": "Obter disponibilidade do quarto",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "ano", "in": "query", "required": true, "schema": { "type": "integer" } },
+          { "name": "mes", "in": "query", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Disponibilidade do quarto" }
+        }
+      }
+    },
+    "/hoteis/{hotelId}/reservas": {
+      "get": {
+        "summary": "Listar reservas por hotel",
+        "parameters": [
+          { "name": "hotelId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Lista de reservas" }
+        }
+      }
+    },
+    "/reservas": {
+      "post": {
+        "summary": "Criar reserva",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Reserva" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Reserva criada" }
+        }
+      },
+      "get": {
+        "summary": "Listar reservas",
+        "responses": {
+          "200": { "description": "Lista de reservas" }
+        }
+      }
+    },
+    "/reservas/{id}": {
+      "get": {
+        "summary": "Obter reserva por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reserva encontrada" },
+          "404": { "description": "Reserva não encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar reserva",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Reserva" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reserva atualizada" },
+          "404": { "description": "Reserva não encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Deletar reserva",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Reserva deletada" },
+          "404": { "description": "Reserva não encontrada" }
+        }
+      }
+    },
+    "/reservas/{id}/cancelar": {
+      "post": {
+        "summary": "Cancelar reserva",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reserva cancelada" },
+          "400": { "description": "Cancelamento não permitido" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Hotel": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "nome": { "type": "string" },
+          "endereco": { "type": "string" },
+          "cidade": { "type": "string" },
+          "estado": { "type": "string" },
+          "pais": { "type": "string" },
+          "telefone": { "type": "string" },
+          "email": { "type": "string" },
+          "site": { "type": "string" }
+        }
+      },
+      "Quarto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "hotelId": { "type": "string" },
+          "numero": { "type": "string" },
+          "tipo": { "type": "string" },
+          "capacidade": { "type": "integer" },
+          "preco_diaria": { "type": "number" }
+        }
+      },
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "hotelId": { "type": "string" },
+          "quartoId": { "type": "string" },
+          "nomeCliente": { "type": "string" },
+          "checkIn": { "type": "string", "format": "date-time" },
+          "checkOut": { "type": "string", "format": "date-time" },
+          "precoTotal": { "type": "number" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}
